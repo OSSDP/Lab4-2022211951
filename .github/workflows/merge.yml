@@ -1,22 +1,27 @@
-name: Auto Merge
-
+name: Automerge
 on:
   pull_request:
-    types: [labeled]
-
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  status: {}
 jobs:
-  auto-merge:
+  automerge:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'auto-merge'
     steps:
-      - uses: actions/checkout@v2
-      - name: Merge PR
+      - name: automerge
+        uses: "pascalgn/automerge-action@629929da409181990e4e638dcf84a74e11d3af66"
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
-    run: |
-      git config --global user.email "action@github.com"
-      git config --global user.name "GitHub Action"
-      git merge origin/${
-     { github.event.pull_request.base.ref }} -m "Auto merge PR ${
-     { github.event.pull_request.number }}"
-     git push
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "automerge,!work in progress"
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-title"
