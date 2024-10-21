@@ -41,7 +41,7 @@ public class L2022211951_11_Test {
     public void testThreeSumExample3() {
         Solution solution = new Solution();
         int[] nums = {0, 0, 0};
-        List<List<Integer>> expected = Arrays.asList(Arrays.asList(0, 0, 0));
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(1, 0, 0));
         List<List<Integer>> result = solution.threeSum(nums);
         assertEquals(expected, result);
     }
