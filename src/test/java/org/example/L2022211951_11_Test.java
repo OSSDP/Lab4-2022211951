@@ -93,7 +93,7 @@ public class L2022211951_11_Test {
     
     // Lab4Test
     @Test
-    public void testThreeSumWithEmptyArray() {
+    public void testForLab4Test() {
         Solution solution = new Solution();
         int[] nums = {};
         List<List<Integer>> expected = Arrays.asList();
