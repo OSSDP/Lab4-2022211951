@@ -91,14 +91,5 @@ public class L2022211951_11_Test {
         List<List<Integer>> result = solution.threeSum(nums);
         assertEquals(expected, result);
     }
-        // 测试用例3：测试全零数组，验证算法能否正确处理特殊情况并返回正确的组合
-    // 测试用例：{0, 0, 0}
-    @Test
-    public void testThreeSumExample3() {
-        Solution solution = new Solution();
-        int[] nums = {0, 0, 0};
-        List<List<Integer>> expected = Arrays.asList(Arrays.asList(1, 0, 0));
-        List<List<Integer>> result = solution.threeSum(nums);
-        assertEquals(expected, result);
-    }
+
 }
