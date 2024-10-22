@@ -91,7 +91,7 @@ public class L2022211951_11_Test {
         assertEquals(expected, result);
     }
     
-    // ForLab4Test
+    // Lab4Test
     @Test
     public void testForLab4Test() {
         Solution solution = new Solution();
