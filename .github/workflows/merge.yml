@@ -1,27 +1,33 @@
-name: Automerge
-on:
-  pull_request:
-    types:
-      - labeled
-      - unlabeled
-      - synchronize
-      - opened
-      - edited
-      - ready_for_review
-      - reopened
-      - unlocked
-  pull_request_review:
-    types:
-      - submitted
-  status: {}
-jobs:
-  automerge:
-    runs-on: ubuntu-latest
-    steps:
-      - name: automerge
-        uses: "pascalgn/automerge-action@629929da409181990e4e638dcf84a74e11d3af66"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: "automerge,!work in progress"
-          MERGE_METHOD: "squash"
-          MERGE_COMMIT_MESSAGE: "pull-request-title"
+name: Automerge 
+on:  
+  pull_request:  
+    types:  
+      - opened  
+      - synchronize  
+      - ready_for_review  
+      - reopened  
+jobs:  
+  run_tests_and_automerge:  
+    runs-on: ubuntu-latest  
+    steps:  
+      - name: Checkout the repository
+        uses: actions/checkout@v2  
+      - name: Set up JDK 17  
+        uses: actions/setup-java@v1  
+        with:  
+          java-version: 17  
+      - name: Cache Maven packages  
+        uses: actions/cache@v2  
+        with:  
+          path: ~/.m2  
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}  
+          restore-keys: ${{ runner.os }}-m2  
+      - name: Run tests with Maven  
+        run: mvn -B test --file pom.xml  
+      - name: Automerge
+        if: ${{ success() && contains(github.event.pull_request.labels.*.name, 'automerge') }}  
+        uses: "pascalgn/automerge-action@629929da409181990e4e638dcf84a74e11d3af66"  
+        env:  
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"  
+          MERGE_METHOD: "squash" 
+          MERGE_COMMIT_MESSAGE: "自动合并: {{pullRequest.title}}"
