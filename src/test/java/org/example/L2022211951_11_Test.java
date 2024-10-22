@@ -90,4 +90,14 @@ public class L2022211951_11_Test {
         List<List<Integer>> result = solution.threeSum(nums);
         assertEquals(expected, result);
     }
+    
+    // Lab4Test
+    @Test
+    public void testThreeSumWithEmptyArray() {
+        Solution solution = new Solution();
+        int[] nums = {};
+        List<List<Integer>> expected = Arrays.asList();
+        List<List<Integer>> result = solution.threeSum(nums);
+        assertEquals(expected, result);
+    }
 }
