@@ -1,3 +1,4 @@
+//自动合并测试
 package org.example;
 import org.junit.Test;
 
